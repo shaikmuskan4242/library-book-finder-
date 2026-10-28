@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#142d4e">
+  <meta name="description" content="Find, organize, and manage library books with Library Book Finder.">
+  <title>Library Book Finder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Library Book Finder home"><span class="brand-mark">LB</span><span>Library<span class="brand-light">Finder</span></span></a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#catalog">Explore books</a><a href="#how-it-works">How it works</a>
+    </nav>
+    <a class="nav-cta" href="#manage">Manage catalog <span aria-hidden="true">↗</span></a>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> YOUR CAMPUS LIBRARY, SIMPLIFIED</div>
+        <h1>Find your next<br><span>great read.</span></h1>
+        <p class="hero-copy">A smarter way to explore your library. Search by title, author, or subject and find the books you need for your next big idea.</p>
+        <a class="primary-button" href="#catalog">Explore the collection <span aria-hidden="true">→</span></a>
+        <div class="hero-proof"><div class="avatar-stack"><i>📘</i><i>📗</i><i>📙</i></div><span>Made for curious minds<br><strong>and lifelong learners</strong></span></div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="sun-orb"></div><div class="art-label">A world of knowledge</div>
+        <div class="book book-back"><span>DESIGN</span><b>THINK<br>BETTER</b></div>
+        <div class="book book-mid"><span>THE ART OF</span><b>LEARNING</b><small>Ideas that stay with you</small></div>
+        <div class="book book-front"><span>FIELD NOTES · 04</span><b>THE<br>CURIOUS<br>MIND</b><small>Keep asking why.</small><div class="book-stamp">LB<br>✳</div></div>
+        <div class="floating-note"><span class="note-icon">✦</span><span><b>One search away</b><small>Your next discovery</small></span></div>
+      </div>
+    </section>
+    <section class="stats-strip" aria-label="Catalog highlights">
+      <div><span class="stat-icon">⌕</span><span><b>Quick discovery</b><small>Search your catalog</small></span></div>
+      <div><span class="stat-icon">▤</span><span><b>Organized collection</b><small>Browse by category</small></span></div>
+      <div><span class="stat-icon">↗</span><span><b>Always up to date</b><small>Manage book records</small></span></div>
+    </section>
+    <section id="catalog" class="catalog-section">
+      <div class="section-heading"><div><div class="eyebrow">THE COLLECTION</div><h2>Explore the shelves<span>.</span></h2><p>Search the catalog and find something worth your time.</p></div><div class="catalog-count" id="book-count">Loading collection…</div></div>
+      <div class="search-panel">
+        <label class="search-box"><span aria-hidden="true">⌕</span><input id="search-input" type="search" placeholder="Search title, author, subject…" autocomplete="off"><kbd>SEARCH</kbd></label>
+        <label class="filter-label">CATEGORY <select id="category-filter"><option value="">All categories</option></select></label>
+        <label class="filter-label">AVAILABILITY <select id="availability-filter"><option value="">All books</option><option value="available">Available</option><option value="unavailable">Checked out</option></select></label>
+        <button id="clear-filters" class="text-button" type="button">Clear filters</button>
+      </div>
+      <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+      <div id="book-grid" class="book-grid" aria-live="polite"></div>
+      <div id="empty-state" class="empty-state" hidden><div class="empty-icon">⌕</div><h3>No books found</h3><p>Try another keyword or clear your filters.</p><button id="empty-clear" class="secondary-button" type="button">Reset search</button></div>
+    </section>
+    <section id="how-it-works" class="how-section"><div><div class="eyebrow">MADE TO BE SIMPLE</div><h2>Less searching.<br><span>More discovering.</span></h2></div><div class="how-cards"><article><span>01</span><h3>Search naturally</h3><p>Look up books by title, author, ISBN, or subject.</p></article><article><span>02</span><h3>Filter your results</h3><p>Narrow the collection by category and availability.</p></article><article><span>03</span><h3>Keep it organized</h3><p>Add, edit, and remove catalog records in the manager below.</p></article></div></section>
+    <section id="manage" class="manage-section">
+      <div class="section-heading"><div><div class="eyebrow">CATALOG TOOLS</div><h2>Manage your books<span>.</span></h2><p>Changes are saved through the backend to your configured Supabase database.</p></div><span class="manage-tag">ADMIN / DEMO TOOL</span></div>
+      <div class="manager-layout">
+        <form id="book-form" class="book-form">
+          <div class="form-top"><div><span class="form-step">BOOK RECORD</span><h3 id="form-heading">Add a new book</h3></div><span class="form-book-icon">＋</span></div>
+          <input type="hidden" id="book-id">
+          <label>Book title <input id="book-title" name="title" maxlength="180" required placeholder="e.g. The Pragmatic Programmer"></label>
+          <label>Author <input id="book-author" name="author" maxlength="140" required placeholder="e.g. Andrew Hunt"></label>
+          <div class="form-row"><label>Category <input id="book-category" name="category" maxlength="80" required placeholder="Computer Science"></label><label>Publication year <input id="book-year" name="publication_year" type="number" min="1000" max="2100" placeholder="2024"></label></div>
+          <label>ISBN <input id="book-isbn" name="isbn" maxlength="20" placeholder="Optional ISBN"></label>
+          <label>Description <textarea id="book-description" name="description" rows="3" maxlength="1000" placeholder="A short description of the book…"></textarea></label>
+          <label class="availability-check"><input id="book-available" type="checkbox" checked> <span>Available in the library</span></label>
+          <div class="form-actions"><button id="save-book" class="primary-button" type="submit">Save book <span>→</span></button><button id="cancel-edit" class="secondary-button" type="button" hidden>Cancel edit</button></div>
+          <p class="form-hint">All book details are validated before saving.</p>
+        </form>
+        <aside class="manager-info"><div class="manager-illustration">▤</div><h3>Your collection,<br>well kept.</h3><p>Use this simple catalog manager to keep records accurate and useful for everyone on campus.</p><div class="manager-rule"></div><div class="manager-tip"><span>✦</span><p><b>Tip for your demo</b><br>Try adding a book, editing it, and then deleting it to show the full CRUD workflow.</p></div><div id="connection-status" class="connection-status"><span class="status-dot"></span> Checking backend connection…</div></aside>
+      </div>
+    </section>
+  </main>
+  <footer><a class="brand footer-brand" href="#"><span class="brand-mark">LB</span><span>Library<span class="brand-light">Finder</span></span></a><p>A student project built for curious minds.</p><span>© <span id="year-now"></span> Library Book Finder</span></footer>
+  <dialog id="delete-dialog" class="confirm-dialog"><form method="dialog"><span class="dialog-icon">!</span><h3>Delete this book?</h3><p>This removes the book record from your catalog. This action cannot be undone.</p><div class="dialog-actions"><button class="secondary-button" value="cancel">Keep book</button><button id="confirm-delete" class="danger-button" value="confirm">Delete book</button></div></form></dialog>
+</body>
+</html>
